@@ -15,6 +15,8 @@ LABEL org.label-schema.name="kafka" \
       org.label-schema.schema-version="1.0" \
       maintainer="wurstmeister"
 
+USER kafka
+
 ENV KAFKA_VERSION=$kafka_version \
     SCALA_VERSION=$scala_version \
     KAFKA_HOME=/opt/kafka \
