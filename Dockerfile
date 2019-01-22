@@ -24,8 +24,7 @@ ENV PATH=${PATH}:${KAFKA_HOME}/bin
 
 COPY download-kafka.sh start-kafka.sh broker-list.sh create-topics.sh versions.sh /tmp/
 
-RUN groupadd -g 999 kafka \
- && useradd -r -u 999 -g kafka kafka \
+RUN adduser -D kafka \
  && apk add --no-cache bash curl jq docker \
  && mkdir /opt \
  && chmod a+x /tmp/*.sh \
