@@ -24,7 +24,9 @@ ENV PATH=${PATH}:${KAFKA_HOME}/bin
 
 COPY download-kafka.sh start-kafka.sh broker-list.sh create-topics.sh versions.sh /tmp/
 
-RUN apk add --no-cache bash curl jq docker \
+RUN groupadd -g 999 kafka && \
+ && useradd -r -u 999 -g kafka kafka \
+ && apk add --no-cache bash curl jq docker \
  && mkdir /opt \
  && chmod a+x /tmp/*.sh \
  && mv /tmp/start-kafka.sh /tmp/broker-list.sh /tmp/create-topics.sh /tmp/versions.sh /usr/bin \
@@ -38,6 +40,8 @@ RUN apk add --no-cache bash curl jq docker \
  && rm glibc-${GLIBC_VERSION}.apk
 
 COPY overrides /opt/overrides
+
+USER kafka
 
 VOLUME ["/kafka"]
 
